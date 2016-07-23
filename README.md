@@ -1,6 +1,6 @@
-# LFUI
+# gulp-starter
 
-lfui is a simple yet powerful free Bootstrap admin dashboard template.
+gulp-starter is learning how to use gulp's project.
 
 - bootstrap-theme-slim
 - vue

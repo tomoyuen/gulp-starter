@@ -7,15 +7,16 @@ var gulp = require('gulp'),
   eslint = require('gulp-eslint'),
   browserify = require('browserify'),
   source = require('vinyl-source-stream'),
-  buffer = require('vinyl-buffer');
+  buffer = require('vinyl-buffer')
+  notify = require('gulp-notify');
 
 var livereload = require('gulp-livereload'),
   webserver = require('gulp-webserver');
 
-  gulp.task('html', function () {
-    return gulp.src('./src/*.html')
-      .pipe(gulp.dest('./dist'));
-  })
+gulp.task('html', function () {
+  return gulp.src('./src/*.html')
+    .pipe(gulp.dest('./dist'));
+});
 
 gulp.task('css', function () {
   var postcss = require('gulp-postcss');
@@ -42,21 +43,19 @@ gulp.task('lint', function () {
     .pipe(eslint.failAfterError());
 });
 
-gulp.task('script', function () {
-  var b = browserify({
-    entries: './src/js/main.js',
+gulp.task('browserify', function() {
+  browserify({
+    entries: ['./src/js/main.js'],
     debug: true,
-  });
-
-  return b.bundle()
-  .pipe(source('bundle.js'))
-  .pipe(buffer())
-  .pipe(babel({
-    presets: ['es2015']
-  }))
-  .pipe(sourcemaps.init({loadMaps: true}))
-  .pipe(sourcemaps.write("."))
-  .pipe(gulp.dest('./dist/js'))
+  })
+    .transform("babelify", {presets: ["es2015"]})
+    .bundle()
+    .pipe(source('bundle.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(sourcemaps.write("."))
+    .pipe(gulp.dest('./dist/js'))
+    .pipe(notify({ message: 'browserify task complete' }));
 });
 
 gulp.task('vueify', function () {
@@ -94,4 +93,4 @@ gulp.task('watch', function () {
   gulp.watch('src/js/*.js', ['lint', 'script']);
 });
 
-gulp.task('default', ['lint', 'webserver', 'watch']);
+gulp.task('default', ['lint', 'browserify', 'webserver', 'watch']);

@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueResource from 'vue-resource';
-import App from '../components/app';
 
 Vue.use(VueResource);
 
@@ -14,8 +13,5 @@ new Vue({
   data: {
     title: 'hahaha',
     msg: 'Hello',
-  },
-  components: {
-    App,
   },
 });

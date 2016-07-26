@@ -2,3 +2,7 @@ body {
   color: $base-color;
   background: #fff;
 }
+
+p {
+  color: #333;
+}

@@ -3,6 +3,7 @@ var gulp = require('gulp'),
   vueify = require('gulp-vueify'),
   imagemin = require('gulp-imagemin'),
   sourcemaps = require('gulp-sourcemaps'),
+  browserSync = require('browser-sync'),
   babel = require('gulp-babel'),
   eslint = require('gulp-eslint'),
   browserify = require('browserify'),
@@ -41,6 +42,12 @@ gulp.task('lint', function () {
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
+});
+
+gulp.task('assets', function (){
+    gulp.src('src/assets/**/*.?(png|jpg|gif|js|eot|svg|ttf|woff|woff2)')
+        .pipe(gulp.dest('./dist/assets'))
+        .pipe(browserSync.reload({stream: true}));
 });
 
 gulp.task('browserify', function() {
@@ -93,4 +100,4 @@ gulp.task('watch', function () {
   gulp.watch('src/js/*.js', ['lint', 'script']);
 });
 
-gulp.task('default', ['lint', 'browserify', 'webserver', 'watch']);
+gulp.task('default', ['lint', 'assets', 'browserify', 'webserver', 'watch']);

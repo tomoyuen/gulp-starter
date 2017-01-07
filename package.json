@@ -1,7 +1,7 @@
 {
-  "name": "lfui",
+  "name": "gulp-starter",
   "version": "0.0.1",
-  "description": "lfui kit",
+  "description": "gulp starter",
   "private": true,
   "main": "main.js",
   "scripts": {
@@ -9,25 +9,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/terranc/LFUI.git"
+    "url": "git+https://github.com/tomoyuen/gulp-starter.git"
   },
   "keywords": [
-    "lfui",
-    "bootstrap",
-    "vue",
-    "components"
+    "gulp"
   ],
   "author": "tomoyuen",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/terranc/LFUI/issues"
+    "url": "https://github.com/tomoyuen/gulp-starter/issues"
   },
-  "homepage": "https://github.com/terranc/LFUI#readme",
+  "homepage": "https://github.com/tomoyuen/gulp-starter#readme",
   "dependencies": {
-    "bootstrap-theme-slim": "^0.0.3",
-    "material-design-icons": "^2.2.3",
-    "vue": "^1.0.26",
-    "vue-resource": "^0.9.3"
+    "material-design-icons": "^2.2.3"
   },
   "devDependencies": {
     "babel-core": "^6.10.4",
@@ -52,7 +46,6 @@
     "gulp-webserver": "^0.9.1",
     "postcss-salad": "^1.0.5",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",
-    "vueify-insert-css": "^1.0.0"
+    "vinyl-source-stream": "^1.1.0"
   }
 }

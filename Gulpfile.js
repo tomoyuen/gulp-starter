@@ -23,7 +23,7 @@ gulp.task('html', function () {
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('css', function () {
+gulp.task('style', function () {
   var processors = [
     salad({
       browser: ['ie > 8', 'last 2 version'],
@@ -39,7 +39,7 @@ gulp.task('css', function () {
       unitPrecision: 5,
       propWhiteList: ['font', 'font-size', 'line-height', 'letter-spacing', 'width', 'height', 'margin', 'padding'],
       selectorBlackList: [/^body$/],
-      replace: true,
+      replace: false,
       mediaQuery: false,
       minPixelValue: 0,
     }),
@@ -125,7 +125,7 @@ gulp.task('clean', function () {
 gulp.task('watch', function () {
   gulp.watch('src/*.html', ['html']);
   gulp.watch('src/components/*.vue', ['vueify']);
-  gulp.watch('src/css/*.css', ['css']);
+  gulp.watch('src/css/*.css', ['style']);
   gulp.watch('src/images/*.{png,jpg,gif,svg}', ['images']);
   gulp.watch('src/js/*.js', ['lint', 'script']);
 });

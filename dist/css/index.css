@@ -7,14 +7,14 @@ html {
     /* 1 */
     -ms-text-size-adjust: 100%;
     /* 2 */
-    -webkit-text-size-adjust: 100%
+    -webkit-text-size-adjust: 100%;
     /* 2 */
 }
 /**
  * Remove the margin in all browsers (opinionated).
  */
 body {
-    margin: 0
+    margin: 0;
 }
 /* HTML5 display definitions
    ========================================================================== */
@@ -36,7 +36,7 @@ nav,
 section,
 summary {
     /* 1 */
-    display: block
+    display: block;
 }
 /**
  * Add the correct display in IE 9-.
@@ -45,20 +45,20 @@ audio,
 canvas,
 progress,
 video {
-    display: inline-block
+    display: inline-block;
 }
 /**
  * Add the correct display in iOS 4-7.
  */
 audio:not([controls]) {
     display: none;
-    height: 0
+    height: 0;
 }
 /**
  * Add the correct vertical alignment in Chrome, Firefox, and Opera.
  */
 progress {
-    vertical-align: baseline
+    vertical-align: baseline;
 }
 /**
  * Add the correct display in IE 10-.
@@ -66,7 +66,7 @@ progress {
  */
 template, /* 1 */
 [hidden] {
-    display: none
+    display: none;
 }
 /* Links
    ========================================================================== */
@@ -77,7 +77,7 @@ template, /* 1 */
 a {
     background-color: transparent;
     /* 1 */
-    -webkit-text-decoration-skip: objects
+    -webkit-text-decoration-skip: objects;
     /* 2 */
 }
 /**
@@ -86,7 +86,7 @@ a {
  */
 a:active,
 a:hover {
-    outline-width: 0
+    outline-width: 0;
 }
 /* Text-level semantics
    ========================================================================== */
@@ -99,7 +99,7 @@ abbr[title] {
     /* 1 */
     text-decoration: underline;
     /* 2 */
-    text-decoration: underline dotted
+    text-decoration: underline dotted;
     /* 2 */
 }
 /**
@@ -107,20 +107,20 @@ abbr[title] {
  */
 b,
 strong {
-    font-weight: inherit
+    font-weight: inherit;
 }
 /**
  * Add the correct font weight in Chrome, Edge, and Safari.
  */
 b,
 strong {
-    font-weight: bolder
+    font-weight: bolder;
 }
 /**
  * Add the correct font style in Android 4.3-.
  */
 dfn {
-    font-style: italic
+    font-style: italic;
 }
 /**
  * Correct the font size and margin on `h1` elements within `section` and
@@ -128,20 +128,20 @@ dfn {
  */
 h1 {
     font-size: 2em;
-    margin: 0.67em 0
+    margin: 0.67em 0;
 }
 /**
  * Add the correct background and color in IE 9-.
  */
 mark {
     background-color: #ff0;
-    color: #000
+    color: #000;
 }
 /**
  * Add the correct font size in all browsers.
  */
 small {
-    font-size: 80%
+    font-size: 80%;
 }
 /**
  * Prevent `sub` and `sup` elements from affecting the line height in
@@ -152,13 +152,13 @@ sup {
     font-size: 75%;
     line-height: 0;
     position: relative;
-    vertical-align: baseline
+    vertical-align: baseline;
 }
 sub {
-    bottom: -0.25em
+    bottom: -0.25em;
 }
 sup {
-    top: -0.5em
+    top: -0.5em;
 }
 /* Embedded content
    ========================================================================== */
@@ -166,13 +166,13 @@ sup {
  * Remove the border on images inside links in IE 10-.
  */
 img {
-    border-style: none
+    border-style: none;
 }
 /**
  * Hide the overflow in IE.
  */
 svg:not(:root) {
-    overflow: hidden
+    overflow: hidden;
 }
 /* Grouping content
    ========================================================================== */
@@ -186,14 +186,14 @@ pre,
 samp {
     font-family: monospace, monospace;
     /* 1 */
-    font-size: 1em
+    font-size: 1em;
     /* 2 */
 }
 /**
  * Add the correct margin in IE 8.
  */
 figure {
-    margin: 1em 40px
+    margin: 1em 40px;
 }
 /**
  * 1. Add the correct box sizing in Firefox.
@@ -204,7 +204,7 @@ hr {
     /* 1 */
     height: 0;
     /* 1 */
-    overflow: visible
+    overflow: visible;
     /* 2 */
 }
 /* Forms
@@ -226,13 +226,13 @@ textarea {
     /* 2 */
     margin: 0;
     /* 3 */
-    vertical-align: middle
+    vertical-align: middle;
 }
 /**
  * Restore the font weight unset by the previous rule.
  */
 optgroup {
-    font-weight: 700
+    font-weight: 700;
 }
 /**
  * Show the overflow in IE.
@@ -241,7 +241,7 @@ optgroup {
 button,
 input {
     /* 1 */
-    overflow: visible
+    overflow: visible;
 }
 /**
  * Remove the inheritance of text transform in Edge, Firefox, and IE.
@@ -250,7 +250,7 @@ input {
 button,
 select {
     /* 1 */
-    text-transform: none
+    text-transform: none;
 }
 /**
  * 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`
@@ -261,7 +261,7 @@ button,
 html [type="button"], /* 1 */
 [type="reset"],
 [type="submit"] {
-    -webkit-appearance: button
+    -webkit-appearance: button;
     /* 2 */
 }
 /**
@@ -272,7 +272,7 @@ button::-moz-focus-inner,
 [type="reset"]::-moz-focus-inner,
 [type="submit"]::-moz-focus-inner {
     border-style: none;
-    padding: 0
+    padding: 0;
 }
 /**
  * Restore the focus styles unset by the previous rule.
@@ -281,7 +281,7 @@ button:-moz-focusring,
 [type="button"]:-moz-focusring,
 [type="reset"]:-moz-focusring,
 [type="submit"]:-moz-focusring {
-    outline: 1px dotted ButtonText
+    outline: 1px dotted ButtonText;
 }
 /**
  * Change the border, margin, and padding in all browsers (opinionated).
@@ -289,7 +289,7 @@ button:-moz-focusring,
 fieldset {
     border: 1px solid #c0c0c0;
     margin: 0 2px;
-    padding: 0.35em 0.625em 0.75em
+    padding: 0.35em 0.625em 0.75em;
 }
 /**
  * 1. Correct the text wrapping in Edge and IE.
@@ -308,7 +308,7 @@ legend {
     /* 1 */
     padding: 0;
     /* 3 */
-    white-space: normal
+    white-space: normal;
     /* 1 */
 }
 /**
@@ -317,17 +317,17 @@ legend {
 textarea {
     overflow: auto;
     resize: none;
-    vertical-align: top
+    vertical-align: top;
 }
 /* webkit focus outline */
 input,
 select,
 textarea {
-    outline: 0
+    outline: 0;
 }
 /* Re-set default cursor for disabled elements. */
 [disabled] {
-    cursor: default
+    cursor: default;
 }
 /**
  * 1. Add the correct box sizing in IE 10-.
@@ -337,7 +337,7 @@ textarea {
 [type="radio"] {
     box-sizing: border-box;
     /* 1 */
-    padding: 0
+    padding: 0;
     /* 2 */
 }
 /**
@@ -345,7 +345,7 @@ textarea {
  */
 [type="number"]::-webkit-inner-spin-button,
 [type="number"]::-webkit-outer-spin-button {
-    height: auto
+    height: auto;
 }
 /**
  * 1. Correct the odd appearance in Chrome and Safari.
@@ -354,7 +354,7 @@ textarea {
 [type="search"] {
     -webkit-appearance: textfield;
     /* 1 */
-    outline-offset: -2px
+    outline-offset: -2px;
     /* 2 */
 }
 /**
@@ -362,7 +362,7 @@ textarea {
  */
 [type="search"]::-webkit-search-cancel-button,
 [type="search"]::-webkit-search-decoration {
-    -webkit-appearance: none
+    -webkit-appearance: none;
 }
 /**
  * Correct the text style of placeholders in Chrome, Edge, ff, and Safari.
@@ -370,21 +370,21 @@ textarea {
 input::-moz-placeholder,
 textarea::-moz-placeholder {
     color: inherit;
-    opacity: 0.54
+    opacity: 0.54;
 }
 input:-ms-input-placeholder,
 textarea:-ms-input-placeholder {
     color: inherit;
-    opacity: 0.54
+    opacity: 0.54;
 }
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
     color: inherit;
-    opacity: 0.54
+    opacity: 0.54;
 }
 input::-ms-clear,
 input::-ms-reveal {
-    display: none
+    display: none;
 }
 /**
  * 1. Correct the inability to style clickable types in iOS and Safari.
@@ -393,7 +393,7 @@ input::-ms-reveal {
 ::-webkit-file-upload-button {
     -webkit-appearance: button;
     /* 1 */
-    font: inherit
+    font: inherit;
     /* 2 */
 }
 /* table
@@ -401,25 +401,25 @@ input::-ms-reveal {
 /* Remove table cell spacing and padding */
 table {
     border-collapse: collapse;
-    border-spacing: 0
+    border-spacing: 0;
 }
 td,
 th {
-    padding: 0
+    padding: 0;
 }
 h1, h2, h3, h4, h5, h6, p, figure, form, blockquote {
-    margin: 0
+    margin: 0;
 }
 ul, ol, li, dl, dd {
     margin: 0;
-    padding: 0
+    padding: 0;
 }
 ul, ol {
-    list-style: none outside none
+    list-style: none outside none;
 }
 h1, h2, h3, h4, h5, h6 {
     font-size: 100%;
-    font-weight: 400
+    font-weight: 400;
 }
 /* reset css */
 /* font icons packages */
@@ -433,13 +433,13 @@ h1, h2, h3, h4, h5, h6 {
        local('MaterialIcons-Regular'),
        url(../assets/fonts/MaterialIcons-Regular.woff2) format('woff2'),
        url(../assets/fonts/MaterialIcons-Regular.woff) format('woff'),
-       url(../assets/fonts/MaterialIcons-Regular.ttf) format('truetype')
+       url(../assets/fonts/MaterialIcons-Regular.ttf) format('truetype');
 }
 .material-icons {
     font-family: 'Material Icons';
     font-weight: 400;
     font-style: normal;
-    font-size: 24px;
+    font-size: 1.2rem;
     /* Preferred icon size */
     display: inline-block;
     line-height: 1;
@@ -457,26 +457,29 @@ h1, h2, h3, h4, h5, h6 {
     -moz-osx-font-smoothing: grayscale;
     /* Support for IE. */
     -webkit-font-feature-settings: 'liga';
-            font-feature-settings: 'liga'
+            font-feature-settings: 'liga';
 }
 .material-icons.md-18 {
-    font-size: 18px
+    font-size: 0.9rem;
 }
 .material-icons.md-24 {
-    font-size: 24px
+    font-size: 1.2rem;
 }
 .material-icons.md-36 {
-    font-size: 36px
+    font-size: 1.8rem;
 }
 .material-icons.md-48 {
-    font-size: 48px
+    font-size: 2.4rem;
 }
 body {
     color: #3bc5ba;
-    background: #fff
+    background: #fff;
+    font-size: 20px;
 }
-p {
-    color: #333
+body p {
+    color: red;
+    background-color: #fefefe;
+    width: 10rem;
 }
 
 /*# sourceMappingURL=index.css.map */

@@ -1,18 +1,22 @@
 var gulp = require('gulp'),
-  clean = require('gulp-clean'),
-  vueify = require('gulp-vueify'),
-  imagemin = require('gulp-imagemin'),
-  sourcemaps = require('gulp-sourcemaps'),
-  browserSync = require('browser-sync'),
-  babel = require('gulp-babel'),
-  eslint = require('gulp-eslint'),
-  browserify = require('browserify'),
-  source = require('vinyl-source-stream'),
-  buffer = require('vinyl-buffer')
-  notify = require('gulp-notify');
-
-var livereload = require('gulp-livereload'),
-  webserver = require('gulp-webserver');
+    clean = require('gulp-clean'),
+    sourcemaps = require('gulp-sourcemaps'),
+    browserSync = require('browser-sync'),
+    babel = require('gulp-babel'),
+    eslint = require('gulp-eslint'),
+    browserify = require('browserify'),
+    source = require('vinyl-source-stream'),
+    buffer = require('vinyl-buffer'),
+    notify = require('gulp-notify'),
+    imagemin = require('gulp-imagemin'),
+    uglify = require('gulp-uglify'),
+    cssnano = require('gulp-cssnano'),
+    postcss = require('gulp-postcss'),
+    livereload = require('gulp-livereload'),
+    webserver = require('gulp-webserver'),
+    rename = require('gulp-rename'),
+    salad = require('postcss-salad'),
+    px2rem = require('postcss-pxtorem');
 
 gulp.task('html', function () {
   return gulp.src('./src/*.html')
@@ -20,23 +24,35 @@ gulp.task('html', function () {
 });
 
 gulp.task('css', function () {
-  var postcss = require('gulp-postcss');
-
-    return gulp.src('src/css/index.css')
-      .pipe(sourcemaps.init())
-      .pipe(postcss([require('postcss-salad')({
-        browser: ['ie > 8', 'last 2 version'],
-        features: {
-          "bem": false,
-          "inlineSvg": {
-            "path": "src/svgs",
-          },
+  var processors = [
+    salad({
+      browser: ['ie > 8', 'last 2 version'],
+      features: {
+        'bem': false,
+        'inlineSvg': {
+          'path': 'src/svgs',
         },
-      })]))
-      .pipe(sourcemaps.write('.'))
-      .pipe(gulp.dest('./dist/css'));
+      },
+    }),
+    px2rem({
+      rootValue: 20,
+      unitPrecision: 5,
+      propWhiteList: ['font', 'font-size', 'line-height', 'letter-spacing', 'width', 'height', 'margin', 'padding'],
+      selectorBlackList: [/^body$/],
+      replace: true,
+      mediaQuery: false,
+      minPixelValue: 0,
+    }),
+  ];
+
+  return gulp.src('src/css/index.css')
+    .pipe(sourcemaps.init())
+    .pipe(postcss(processors))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('./dist/css'));
 });
 
+/* eslint代码校验 */
 gulp.task('lint', function () {
   return gulp.src('src/js/*.js')
     .pipe(eslint())
@@ -44,33 +60,47 @@ gulp.task('lint', function () {
     .pipe(eslint.failAfterError());
 });
 
-gulp.task('assets', function (){
-    gulp.src('src/assets/**/*.?(png|jpg|gif|js|eot|svg|ttf|woff|woff2)')
-        .pipe(gulp.dest('./dist/assets'))
-        .pipe(browserSync.reload({stream: true}));
+gulp.task('assets', function () {
+  gulp.src('src/assets/**/*.?(png|jpg|gif|js|eot|svg|ttf|woff|woff2)')
+    .pipe(gulp.dest('./dist/assets'))
+    .pipe(browserSync.reload({stream: true}));
 });
 
 gulp.task('browserify', function() {
   browserify({
     entries: ['./src/js/main.js'],
     debug: true,
-  })
-    .transform("babelify", {presets: ["es2015"]})
+  }).transform('babelify', {presets: ['es2015']})
     .bundle()
     .pipe(source('bundle.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({loadMaps: true}))
-    .pipe(sourcemaps.write("."))
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('./dist/js'))
     .pipe(notify({ message: 'browserify task complete' }));
 });
 
-gulp.task('vueify', function () {
-  return gulp.src('./src/components/**.*.vue')
-    .pipe(vueify())
-    .pipe(gulp.dest('./dist/components'));
+/* 压缩 js文件 */
+gulp.task('minifyJS', function() {
+  gulp.src('dist/js/*.js')
+    .pipe(uglify())
+    .pipe(rename({
+      suffix: '.min',
+    }))
+    .pipe(gulp.dest('dist/js'));
 });
-
+/* 压缩 css 文件 */
+gulp.task('minifyCSS', function() {
+  gulp.src('dist/css/*.css')
+    .pipe(sourcemaps.init())
+    .pipe(cssnano())
+    .pipe(sourcemaps.write('.'))
+    .pipe(rename({
+      suffix: '.min',
+    }))
+    .pipe(gulp.dest('dist/css'));
+});
+/* 压缩图片 */
 gulp.task('images', function () {
   return gulp.src('src/images/*.{png,jpg,gif,svg}')
     .pipe(imagemin({
@@ -83,7 +113,7 @@ gulp.task('webserver', function () {
   gulp.src('./')
     .pipe(webserver({
       livereload: true,
-      open: true,
+      open: false,
     }));
 });
 

@@ -10,7 +10,7 @@ gulp-starter is learning how to use gulp's project.
 
 TODO
 
-- [ ] postcss px转rem
+- [x] postcss px转rem
 - [ ] postcss code snippets
 - [ ] 雪碧图
 - [ ] css变量

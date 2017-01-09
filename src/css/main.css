@@ -1,8 +1,10 @@
 body {
   color: $base-color;
   background: #fff;
-}
-
-p {
-  color: #333;
+  font-size: 20px;
+  p {
+    color: red;
+    background-color: #fefefe;
+    width: 200px;
+  }
 }

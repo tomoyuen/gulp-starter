@@ -12,7 +12,6 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     cssnano = require('gulp-cssnano'),
     postcss = require('gulp-postcss'),
-    livereload = require('gulp-livereload'),
     webserver = require('gulp-webserver'),
     rename = require('gulp-rename'),
     salad = require('postcss-salad'),
@@ -50,7 +49,7 @@ gulp.task('style', function () {
     }),
   ];
 
-  return gulp.src('src/css/index.css')
+  return gulp.src('src/css/main.css')
     .pipe(sourcemaps.init())
     .pipe(postcss(processors))
     .pipe(sourcemaps.write('.'))
@@ -115,7 +114,7 @@ gulp.task('images', function () {
 });
 
 gulp.task('webserver', function () {
-  gulp.src('./')
+  gulp.src('./dist')
     .pipe(webserver({
       livereload: true,
       open: false,
@@ -128,8 +127,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch('src/*.html', ['html']);
-  gulp.watch('src/components/*.vue', ['vueify']);
+  gulp.watch(['src/*.html', 'src/**/*.html'], ['html']);
   gulp.watch('src/css/*.css', ['style']);
   gulp.watch('src/images/*.{png,jpg,gif,svg}', ['images']);
   gulp.watch('src/js/*.js', ['lint', 'script']);

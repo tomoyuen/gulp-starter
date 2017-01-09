@@ -1,3 +1,7 @@
+@import './reset.css';
+@import './icons.css';
+@import './colors.css';
+
 body {
   color: $base-color;
   background: #fff;
@@ -6,5 +10,6 @@ body {
     color: red;
     background-color: #fefefe;
     width: 200px;
+    @utils-ellipsis 4;
   }
 }

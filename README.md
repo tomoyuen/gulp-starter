@@ -11,9 +11,9 @@ gulp-starter is learning how to use gulp's project.
 TODO
 
 - [x] postcss px转rem
-- [ ] postcss code snippets
+- [x] postcss code snippets
 - [ ] 雪碧图
-- [ ] css变量
+- [x] css变量
 - [x] babel编译
 - [ ] 图片震荡
 - [ ] webp图片支持

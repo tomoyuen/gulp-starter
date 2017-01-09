@@ -16,10 +16,15 @@ var gulp = require('gulp'),
     webserver = require('gulp-webserver'),
     rename = require('gulp-rename'),
     salad = require('postcss-salad'),
-    px2rem = require('postcss-pxtorem');
+    px2rem = require('postcss-pxtorem'),
+    fileinclude = require('gulp-file-include');
 
 gulp.task('html', function () {
   return gulp.src('./src/*.html')
+    .pipe(fileinclude({
+      prefix: '@@',
+      basepath: 'src/public',
+    }))
     .pipe(gulp.dest('./dist'));
 });
 

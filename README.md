@@ -17,4 +17,4 @@ TODO
 - [x] babel编译
 - [ ] 图片震荡
 - [ ] webp图片支持
-- [ ] include引用头部尾部
+- [x] include引用头部尾部

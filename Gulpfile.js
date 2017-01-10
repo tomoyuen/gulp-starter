@@ -1,25 +1,25 @@
 var gulp = require('gulp'),
+    util = require('gulp-util'),
     clean = require('gulp-clean'),
-    sourcemaps = require('gulp-sourcemaps'),
     browserSync = require('browser-sync'),
-    babel = require('gulp-babel'),
     eslint = require('gulp-eslint'),
     browserify = require('browserify'),
     source = require('vinyl-source-stream'),
     buffer = require('vinyl-buffer'),
     notify = require('gulp-notify'),
+    fileinclude = require('gulp-file-include'),
+    rename = require('gulp-rename'),
     imagemin = require('gulp-imagemin'),
     uglify = require('gulp-uglify'),
     cssnano = require('gulp-cssnano'),
     postcss = require('gulp-postcss'),
-    webserver = require('gulp-webserver'),
-    rename = require('gulp-rename'),
     salad = require('postcss-salad'),
     px2rem = require('postcss-pxtorem'),
-    fileinclude = require('gulp-file-include'),
-    cssSprite = require('postcss-easysprites');
+    cssSprite = require('postcss-easysprites'),
+    sourcemaps = require('gulp-sourcemaps'),
+    webserver = require('gulp-webserver');
 
-gulp.task('html', function () {
+gulp.task('html', function() {
   return gulp.src('./src/*.html')
     .pipe(fileinclude({
       prefix: '@@',
@@ -28,7 +28,7 @@ gulp.task('html', function () {
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('style', function () {
+gulp.task('style', function() {
   var processors = [
     salad({
       browser: ['ie > 8', 'last 2 version'],
@@ -51,92 +51,73 @@ gulp.task('style', function () {
     }),
     cssSprite({
       imagePath: './src/assets/imgs/slice',
-      spritePath: './src/assets/imgs',
+      spritePath: './dist/assets/imgs',
     }),
   ];
 
   return gulp.src('src/css/main.css')
-    .pipe(sourcemaps.init())
+    .pipe(!util.env.production ? sourcemaps.init() : util.noop())
     .pipe(postcss(processors))
-    .pipe(sourcemaps.write('.'))
+    .pipe(!util.env.production ? sourcemaps.write('.') : util.noop())
+    .pipe(util.env.production ? cssnano() : util.noop())
+    .pipe(util.env.production ? rename({ suffix: '.min' }) : util.noop())
     .pipe(gulp.dest('./dist/css'));
 });
 
 /* eslint代码校验 */
-gulp.task('lint', function () {
+gulp.task('lint', function() {
   return gulp.src('src/js/*.js')
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
 });
 
-gulp.task('assets', function () {
-  gulp.src('src/assets/**/*.?(png|jpg|gif|js|eot|svg|ttf|woff|woff2)')
+gulp.task('assets', function() {
+  return gulp.src('src/assets/**/*.?(png|jpg|gif|js|eot|svg|ttf|woff|woff2)')
     .pipe(gulp.dest('./dist/assets'))
     .pipe(browserSync.reload({stream: true}));
 });
 
-gulp.task('browserify', function() {
-  browserify({
-    entries: ['./src/js/main.js'],
+gulp.task('script', ['lint'], function() {
+  return browserify({
+    entries: ['src/js/main.js'],
     debug: true,
   }).transform('babelify', {presets: ['es2015']})
     .bundle()
-    .pipe(source('bundle.js'))
+    .pipe(source('main.js'))
     .pipe(buffer())
-    .pipe(sourcemaps.init({loadMaps: true}))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('./dist/js'))
-    .pipe(notify({ message: 'browserify task complete' }));
+    .pipe(!util.env.production ? sourcemaps.init({loadMaps: true}) : util.noop())
+    .pipe(!util.env.production ? sourcemaps.write('.') : util.noop())
+    .pipe(util.env.production ? uglify() : util.noop())
+    .pipe(util.env.production ? rename({ suffix: '.min' }) : util.noop())
+    .pipe(gulp.dest('dist/js'))
+    .pipe(notify({ message: 'script task complete' }));
 });
 
-/* 压缩 js文件 */
-gulp.task('minifyJS', function() {
-  gulp.src('dist/js/*.js')
-    .pipe(uglify())
-    .pipe(rename({
-      suffix: '.min',
-    }))
-    .pipe(gulp.dest('dist/js'));
+gulp.task('imagemin', ['style', 'assets'], function() {
+  return gulp.src('dist/assets/imgs/*')
+    .pipe(util.env.production ? imagemin({ progressive: true }) : util.noop())
+    .pipe(gulp.dest('dist/assets/imgs'));
 });
-/* 压缩 css 文件 */
-gulp.task('minifyCSS', function() {
-  gulp.src('dist/css/*.css')
-    .pipe(sourcemaps.init())
-    .pipe(cssnano())
-    .pipe(sourcemaps.write('.'))
-    .pipe(rename({
-      suffix: '.min',
-    }))
-    .pipe(gulp.dest('dist/css'));
-});
-/* 压缩图片 */
-gulp.task('images', function () {
-  return gulp.src('src/images/*.{png,jpg,gif,svg}')
-    .pipe(imagemin({
-      progressive: true,
-      svgoPlugins: [{removeViewBox: false}],
-    }));
-});
-
-gulp.task('webserver', function () {
-  gulp.src('./dist')
+/* gulp server */
+gulp.task('webserver', function() {
+  return gulp.src('dist')
     .pipe(webserver({
       livereload: true,
       open: false,
     }));
 });
 
-gulp.task('clean', function () {
-  return gulp.src(['dist/css/maps', 'dist/js/maps'], {read: false})
+gulp.task('clean', function() {
+  return gulp.src('dist', {read: false})
     .pipe(clean());
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', function() {
   gulp.watch(['src/*.html', 'src/**/*.html'], ['html']);
   gulp.watch('src/css/*.css', ['style']);
   gulp.watch('src/assets/imgs/*.{png,jpg,gif,svg}', ['images']);
   gulp.watch('src/js/*.js', ['lint', 'script']);
 });
 
-gulp.task('default', ['lint', 'assets', 'browserify', 'webserver', 'watch']);
+gulp.task('default', ['html', 'assets', 'style', 'imagemin', 'lint', 'script']);

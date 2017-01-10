@@ -2,10 +2,39 @@
 @import './icons.css';
 @import './colors.css';
 
+@each $icon in (foo, bar, baz) {
+  .icon-$(icon) {
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    background: url('../assets/imgs/slice/$(icon).png#elements');
+  }
+}
+
+@svg-load table url(table.svg) {
+  fill: #cfc;
+}
+.table {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: svg-inline(table);
+  background-size: cover;
+}
+.position {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: svg-load('position.svg', fill=#0f0, stroke=#fff);
+  background-size: cover;
+}
+
+html {
+  font-size: 20px;
+}
 body {
   color: $base-color;
   background: #fff;
-  font-size: 20px;
   p {
     color: red;
     background-color: #fefefe;

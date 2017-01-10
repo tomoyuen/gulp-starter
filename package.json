@@ -46,6 +46,7 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^2.0.0",
     "gulp-webserver": "^0.9.1",
+    "postcss-easysprites": "^0.1.7",
     "postcss-pxtorem": "^3.3.1",
     "postcss-salad": "^1.0.5",
     "vinyl-buffer": "^1.0.0",

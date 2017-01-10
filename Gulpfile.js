@@ -16,7 +16,8 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     salad = require('postcss-salad'),
     px2rem = require('postcss-pxtorem'),
-    fileinclude = require('gulp-file-include');
+    fileinclude = require('gulp-file-include'),
+    cssSprite = require('postcss-easysprites');
 
 gulp.task('html', function () {
   return gulp.src('./src/*.html')
@@ -34,7 +35,8 @@ gulp.task('style', function () {
       features: {
         'bem': false,
         'inlineSvg': {
-          'path': 'src/svgs',
+          'path': 'src/assets/svgs',
+          'removeFill': true,
         },
       },
     }),
@@ -42,10 +44,14 @@ gulp.task('style', function () {
       rootValue: 20,
       unitPrecision: 5,
       propWhiteList: ['font', 'font-size', 'line-height', 'letter-spacing', 'width', 'height', 'margin', 'padding'],
-      selectorBlackList: [/^body$/],
+      selectorBlackList: [/^html$/],
       replace: false,
       mediaQuery: false,
       minPixelValue: 0,
+    }),
+    cssSprite({
+      imagePath: './src/assets/imgs/slice',
+      spritePath: './src/assets/imgs',
     }),
   ];
 
@@ -129,7 +135,7 @@ gulp.task('clean', function () {
 gulp.task('watch', function () {
   gulp.watch(['src/*.html', 'src/**/*.html'], ['html']);
   gulp.watch('src/css/*.css', ['style']);
-  gulp.watch('src/images/*.{png,jpg,gif,svg}', ['images']);
+  gulp.watch('src/assets/imgs/*.{png,jpg,gif,svg}', ['images']);
   gulp.watch('src/js/*.js', ['lint', 'script']);
 });
 

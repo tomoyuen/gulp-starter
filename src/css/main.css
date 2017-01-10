@@ -33,8 +33,10 @@ html {
   font-size: 20px;
 }
 body {
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
   color: $base-color;
   background: #fff;
+  box-sizing: border-box;
   p {
     color: red;
     background-color: #fefefe;

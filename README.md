@@ -1,10 +1,12 @@
 # gulp-starter
 
-gulp-starter is learning how to use gulp's project.
+a mutil-page website generater based gulp.
 
 - gulp
 - postcss
 - es6(es-lint)
+
+
 
 TODO
 

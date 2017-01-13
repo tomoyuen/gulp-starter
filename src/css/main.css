@@ -10,7 +10,14 @@
     background: url('../assets/imgs/slice/$(icon).png#elements');
   }
 }
-
+@each $icon in (location, position, website, mail, mobile) {
+  .icon.$(icon) {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background: inline('imgs/slice/icon-$(icon).png') center no-repeat;
+  }
+}
 @svg-load table url(table.svg) {
   fill: #cfc;
 }

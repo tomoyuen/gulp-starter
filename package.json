@@ -47,6 +47,7 @@
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.8",
     "gulp-webserver": "^0.9.1",
+    "postcss-assets": "^4.1.0",
     "postcss-easysprites": "^0.1.7",
     "postcss-pxtorem": "^3.3.1",
     "postcss-salad": "^1.0.5",

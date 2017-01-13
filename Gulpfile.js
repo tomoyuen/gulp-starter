@@ -16,6 +16,7 @@ var gulp = require('gulp'),
     salad = require('postcss-salad'),
     px2rem = require('postcss-pxtorem'),
     cssSprite = require('postcss-easysprites'),
+    assets = require('postcss-assets'),
     sourcemaps = require('gulp-sourcemaps'),
     webserver = require('gulp-webserver');
 
@@ -39,6 +40,9 @@ gulp.task('style', function() {
           'removeFill': true,
         },
       },
+    }),
+    assets({
+      loadPaths: ['src/assets'],
     }),
     px2rem({
       rootValue: 20,

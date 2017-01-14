@@ -18,6 +18,7 @@ var gulp = require('gulp'),
     cssSprite = require('postcss-easysprites'),
     assets = require('postcss-assets'),
     webp = require('gulp-webp'),
+    gzip = require('gulp-gzip'),
     sourcemaps = require('gulp-sourcemaps'),
     webserver = require('gulp-webserver');
 
@@ -109,6 +110,12 @@ gulp.task('imagemin', ['style'], function() {
   return gulp.src('src/assets/imgs/*')
     .pipe(util.env.production ? imagemin({ progressive: true }) : util.noop())
     .pipe(gulp.dest('dist/assets/imgs'));
+});
+
+gulp.task('gzip', function() {
+  return gulp.src('./dist/**/*.{html, xml, json, css, js}')
+    .pipe(gzip())
+    .pipe(gulp.dest('./dist/'));
 });
 
 /* gulp server */

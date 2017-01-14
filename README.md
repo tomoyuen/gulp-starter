@@ -17,6 +17,6 @@ TODO
 - [x] css变量
 - [x] babel编译
 - [ ] 图片震荡
-- [ ] webp图片支持
+- [x] webp图片支持
 - [x] include引用头部尾部
 - [x] Material icons图标字体

@@ -17,6 +17,7 @@ var gulp = require('gulp'),
     px2rem = require('postcss-pxtorem'),
     cssSprite = require('postcss-easysprites'),
     assets = require('postcss-assets'),
+    webp = require('gulp-webp'),
     sourcemaps = require('gulp-sourcemaps'),
     webserver = require('gulp-webserver');
 
@@ -67,6 +68,12 @@ gulp.task('style', function() {
     .pipe(util.env.production ? rename({ suffix: '.min' }) : util.noop())
     .pipe(gulp.dest('./dist/css'));
 });
+
+gulp.task('webp', function() {
+  return gulp.src('src/assets/imgs/*')
+    .pipe(webp())
+    .pipe(gulp.dest('./dist/assets/imgs'));
+})
 
 /* eslint代码校验 */
 gulp.task('lint', function() {

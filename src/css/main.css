@@ -2,21 +2,25 @@
 @import './icons.css';
 @import './colors.css';
 
+@custom-selector :--heading h1, h2, h3, h4, h5, h6 ;
+
+@custom-media --small-viewport (max-width: 480px);
+
 @each $icon in (foo, bar, baz) {
 	.icon-$(icon) {
-		background: url('../assets/imgs/slice/$(icon).png#elements');
 		display: inline-block;
 		width: 200px;
 		height: 200px;
+		background: url('../assets/imgs/slice/$(icon).png#elements');
 	}
 }
 
 @each $icon in (location, position, website, mail, mobile) {
 	.icon.$(icon) {
-		background: inline('imgs/slice/icon-$(icon).png') center no-repeat;
 		display: inline-block;
 		width: 14px;
 		height: 14px;
+		background: inline('imgs/slice/icon-$(icon).png') center no-repeat;
 	}
 }
 
@@ -24,19 +28,23 @@
 	fill: #cfc;
 }
 
+article :--heading + p {
+	margin-top: 0;
+}
+
 .table {
-	background: svg-inline(table);
 	display: inline-block;
 	width: 40px;
 	height: 40px;
+	background: svg-inline(table);
 	background-size: cover;
 }
 
 .position {
-	background: svg-load('position.svg', fill=#0f0, stroke=#fff);
 	display: inline-block;
 	width: 40px;
 	height: 40px;
+	background: svg-load('position.svg', fill=#0f0, stroke=#fff);
 	background-size: cover;
 }
 
@@ -54,17 +62,56 @@ html {
 }
 
 body {
+	box-sizing: border-box;
 	background: #fff;
+	color: $base-color;
 	font-size: 14px;
 	font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-	color: $base-color;
-	box-sizing: border-box;
+
+	@media (--small-viewport) {
+		font-size: 16px;
+	}
 
 	p {
-		color: red;
-		background-color: #fefefe;
 		width: 200px;
+		background-color: #fefefe;
+		color: red;
 
 		@utils-ellipsis 4 ;
 	}
+}
+
+p:matches(:first-child, .special) {
+	color: red;
+}
+
+.banner {
+	position: fixed 0 0 *;
+	border: 1px 2px #343434;
+	size: 40px;
+	color: #abccfc #212131;
+	font-size: 12px 2;
+}
+
+/* .container {
+	@neat-outer-container;
+
+	.parent-element {
+		@neat-span-columns 8；
+    .element {
+			@neat-span-columns 6 8 ;
+		}
+	}
+} */
+
+.rect {
+	rect: 20px 30px #ff0;
+}
+
+.circle {
+	circle: 50px #ff0;
+}
+
+.triangle {
+	triangle: 5px top #ff0;
 }

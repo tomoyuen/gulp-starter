@@ -53,7 +53,7 @@
     "postcss-easysprites": "^0.1.7",
     "postcss-pxtorem": "^3.3.1",
     "postcss-reporter": "^3.0.0",
-    "postcss-salad": "^1.0.5",
+    "postcss-salad": "^1.0.8",
     "postcss-sorting": "^2.0.1",
     "stylefmt": "^5.1.1",
     "stylelint": "^7.7.1",

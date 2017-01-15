@@ -3,6 +3,8 @@ var gulp = require('gulp'),
     clean = require('gulp-clean'),
     browserSync = require('browser-sync'),
     eslint = require('gulp-eslint'),
+    styleLint = require('stylelint'),
+    reporter = require('postcss-reporter'),
     browserify = require('browserify'),
     source = require('vinyl-source-stream'),
     buffer = require('vinyl-buffer'),
@@ -17,6 +19,7 @@ var gulp = require('gulp'),
     px2rem = require('postcss-pxtorem'),
     cssSprite = require('postcss-easysprites'),
     assets = require('postcss-assets'),
+    sorting = require('postcss-sorting'),
     webp = require('gulp-webp'),
     gzip = require('gulp-gzip'),
     sourcemaps = require('gulp-sourcemaps'),
@@ -82,6 +85,16 @@ gulp.task('lint', function() {
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
+});
+gulp.task('lint-css', function() {
+  var processors = [
+    styleLint(),
+    reporter({
+      clearMessages: true,
+    }),
+  ];
+  return gulp.src('src/css/*css')
+    .pipe(postcss(processors));
 });
 
 gulp.task('assets', ['style'], function() {

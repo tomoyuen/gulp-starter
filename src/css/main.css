@@ -52,6 +52,7 @@ body {
   color: $base-color;
   background: #fff;
   box-sizing: border-box;
+  position: relative;
   p {
     color: red;
     background-color: #fefefe;

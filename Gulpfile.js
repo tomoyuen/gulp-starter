@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync'),
     eslint = require('gulp-eslint'),
     styleLint = require('stylelint'),
+    stylefmt = require('stylefmt'),
     reporter = require('postcss-reporter'),
     browserify = require('browserify'),
     source = require('vinyl-source-stream'),
@@ -79,7 +80,7 @@ gulp.task('webp', function() {
     .pipe(gulp.dest('./dist/assets/imgs'));
 })
 
-/* eslint代码校验 */
+/* 代码校验 */
 gulp.task('lint', function() {
   return gulp.src('src/js/*.js')
     .pipe(eslint())
@@ -88,13 +89,16 @@ gulp.task('lint', function() {
 });
 gulp.task('lint-css', function() {
   var processors = [
-    styleLint(),
+    sorting,
+    stylefmt,
+    styleLint,
     reporter({
       clearMessages: true,
     }),
   ];
   return gulp.src('src/css/*css')
-    .pipe(postcss(processors));
+    .pipe(postcss(processors))
+    .pipe(gulp.dest('src/css'));
 });
 
 gulp.task('assets', ['style'], function() {

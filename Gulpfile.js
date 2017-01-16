@@ -35,7 +35,7 @@ gulp.task('html', function() {
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('style', function() {
+gulp.task('style', ['lint-css'], function() {
   var processors = [
     salad({
       browser: ['ie > 8', 'last 2 version'],
@@ -78,7 +78,7 @@ gulp.task('webp', function() {
   return gulp.src('src/assets/imgs/*')
     .pipe(webp())
     .pipe(gulp.dest('./dist/assets/imgs'));
-})
+});
 
 /* 代码校验 */
 gulp.task('lint', function() {
@@ -154,7 +154,7 @@ gulp.task('gzip', function() {
 });
 
 /* gulp server */
-gulp.task('webserver', function() {
+gulp.task('webserver', ['html', 'style', 'script'], function() {
   return gulp.src('dist')
     .pipe(webserver({
       livereload: true,
@@ -170,9 +170,9 @@ gulp.task('clean', function() {
 
 gulp.task('watch', ['webserver'], function() {
   gulp.watch(['src/*.html', 'src/**/*.html'], ['html']);
-  gulp.watch('src/css/*.css', ['style']);
+  gulp.watch('src/css/*.css', ['lint-css', 'style']);
   gulp.watch('src/assets/imgs/*.{png,jpg,gif,svg}', ['imagemin']);
   gulp.watch('src/js/*.js', ['lint', 'script']);
 });
 
-gulp.task('default', ['html', 'assets', 'style', 'imagemin', 'lint', 'script']);
+gulp.task('default', ['watch']);

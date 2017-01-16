@@ -89,34 +89,13 @@ gulp.task('lint', function() {
 });
 gulp.task('lint-css', function() {
   var processors = [
-    sorting({
-      order: [
-        'custom-properties',
-        'dollar-variables',
-        'declarations',
-        'at-rules',
-        {
-          type: 'at-rule',
-          name: 'include',
-        },
-        {
-          type: 'at-rule',
-          name: 'include',
-          parameter: 'icon',
-        },
-        'rules',
-      ],
-      'unspecified-properties-position': 'bottom',
-    }),
-    stylefmt,
     styleLint,
     reporter({
       clearMessages: true,
     }),
   ];
   return gulp.src('src/css/*css')
-    .pipe(postcss(processors))
-    .pipe(gulp.dest('src/css'));
+    .pipe(postcss(processors));
 });
 
 gulp.task('assets', ['style'], function() {
@@ -175,4 +154,4 @@ gulp.task('watch', ['webserver'], function() {
   gulp.watch('src/js/*.js', ['lint', 'script']);
 });
 
-gulp.task('default', ['watch']);
+gulp.task('default', ['html', 'assets', 'style', 'imagemin', 'script']);

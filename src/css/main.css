@@ -2,116 +2,225 @@
 @import './icons.css';
 @import './colors.css';
 
-@custom-selector :--heading h1, h2, h3, h4, h5, h6 ;
+@custom-selector :--heading h1, h2, h3, h4, h5, h6;
 
 @custom-media --small-viewport (max-width: 480px);
 
 @each $icon in (foo, bar, baz) {
-	.icon-$(icon) {
-		display: inline-block;
-		width: 200px;
-		height: 200px;
-		background: url('../assets/imgs/slice/$(icon).png#elements');
-	}
+  .icon-$(icon) {
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    background: url('../assets/imgs/slice/$(icon).png#elements');
+  }
 }
 
 @each $icon in (location, position, website, mail, mobile) {
-	.icon.$(icon) {
-		display: inline-block;
-		width: 14px;
-		height: 14px;
-		background: inline('imgs/slice/icon-$(icon).png') center no-repeat;
-	}
+  .icon.$(icon) {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background: inline('imgs/slice/icon-$(icon).png') center no-repeat;
+  }
 }
 
 @svg-load table url(table.svg) {
-	fill: #cfc;
+  fill: #cfc;
 }
 
 article :--heading + p {
-	margin-top: 0;
+  margin-top: 0;
 }
 
 .table {
-	display: inline-block;
-	width: 40px;
-	height: 40px;
-	background: svg-inline(table);
-	background-size: cover;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: svg-inline(table);
+  background-size: cover;
 }
 
 .position {
-	display: inline-block;
-	width: 40px;
-	height: 40px;
-	background: svg-load('position.svg', fill=#0f0, stroke=#fff);
-	background-size: cover;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: svg-load('position.svg', fill=#0f0, stroke=#fff);
+  background-size: cover;
 }
 
 a {
-	color: inherit;
-	text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 
-	&:hover {
-		text-decoration: underline;
-	}
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 html {
-	font-size: 20px;
+  font-size: 20px;
 }
 
 body {
-	box-sizing: border-box;
-	background: #fff;
-	color: $base-color;
-	font-size: 14px;
-	font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  box-sizing: border-box;
+  background: #fff;
+  color: $base-color;
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
 
-	@media (--small-viewport) {
-		font-size: 16px;
-	}
+  @media (--small-viewport) {
+    font-size: 16px;
+  }
 
-	p {
-		width: 200px;
-		background-color: #fefefe;
-		color: red;
+  p {
+    width: 200px;
+    background-color: #fefefe;
+    color: red;
 
-		@utils-ellipsis 4 ;
-	}
+    @utils-ellipsis 4 ;
+  }
 }
 
 p:matches(:first-child, .special) {
-	color: red;
+  color: red;
 }
 
 .banner {
-	position: fixed 0 0 *;
-	border: 1px 2px #343434;
-	size: 40px;
-	color: #abccfc #212131;
-	font-size: 12px 2;
+  position: fixed 0 0 *;
+  border: 1px 2px #343434;
+  size: 40px;
+  color: #abccfc #212131;
+  font-size: 12px 2;
 }
 
 /* .container {
-	@neat-outer-container;
+  @neat-outer-container;
 
-	.parent-element {
-		@neat-span-columns 8；
+  .parent-element {
+    @neat-span-columns 8；
     .element {
-			@neat-span-columns 6 8 ;
-		}
-	}
+      @neat-span-columns 6 8 ;
+    }
+  }
 } */
 
 .rect {
-	rect: 20px 30px #ff0;
+  rect: 20px 30px #ff0;
 }
 
 .circle {
-	circle: 50px #ff0;
+  circle: 50px #ff0;
 }
 
 .triangle {
-	triangle: 5px top #ff0;
+  triangle: 5px top #ff0;
+}
+
+/* precss */
+
+/* Variables */
+$blue: #056ef0;
+$column: 200px;
+
+.menu {
+  width: calc(4 * $column);
+}
+
+.menu-link {
+  background: $blue;
+  width: $column;
+}
+
+/* Conditionals */
+.notice--clear {
+  @if 3 < 5 {
+    background: green;
+  }
+  @else {
+    background: blue;
+  }
+}
+
+/* Loops */
+@for $i from 1 to 3 {
+  .b-$i {
+    width: $(i)px;
+  }
+}
+
+@each $icon in (foo, bar, baz) {
+  .icon-$(icon) {
+    background: url('icons/$(icon).png');
+  }
+}
+
+/* Mixins */
+@define-mixin icon $name {
+  padding-left: 16px;
+
+  &::after {
+    content: '';
+    background: url('icons/$(name).png');
+  }
+}
+
+.search {
+  @mixin icon search ;
+}
+
+/* Extends */
+@define-extend bg-green {
+  background: green;
+}
+
+.notice--clear {
+  @extend bg-green;
+}
+
+/* Imports */
+
+/* Property Lookup */
+.heading {
+  margin: 20px;
+  padding: @margin;
+}
+
+/* Root */
+.parent {
+  background: white;
+
+  @at-root {
+    .child {
+      background: black;
+    }
+  }
+}
+
+/* Custom Selector */
+@custom-selector --any .foo, .bar
+
+  --any h1 {
+  padding-left: 16px;
+}
+
+/*
+ * Custom Media
+ *  --phone: (min-width: 544px)
+ *  --tablet: (min-width: 768px)
+ *  --desktop: (min-width: 992px)
+ *  --large-desktop: (min-width: 1200px)
+ */
+
+/* Media Min Max */
+@media screen and (width >= 500px) and (width <= 1200px) {
+  .bar {
+    display: block;
+  }
+}
+
+/* Color Function */
+.whatever {
+  color: color(red a(10%));
+  background-color: color(red lightness(50%));
+  border-color: color(hsla(125, 50%, 50%, .4) saturation(+ 10%) w(- 20%));
 }

@@ -8,6 +8,7 @@
       "color-hex-case": [ "lower", {
       "message": "Lowercase letters are easier to distinguish from numbers"
     }],
-    "at-rule-empty-line-before": null
+    "at-rule-empty-line-before": null,
+    "number-leading-zero": "never"
   }
 }

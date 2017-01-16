@@ -224,3 +224,13 @@ $column: 200px;
   background-color: color(red lightness(50%));
   border-color: color(hsla(125, 50%, 50%, .4) saturation(+ 10%) w(- 20%));
 }
+
+/* Selector Matches */
+p:matches(:first-child, .special) {
+  color: red;
+}
+
+/* Selector Not */
+p:not(:first-child, .special) {
+  color: red;
+}

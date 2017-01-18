@@ -48,16 +48,21 @@ body {
     font-size: 16px;
   }
 }
-/* .container {
+.container {
   @neat-outer-container;
-
-  .parent-element {
-    @neat-span-columns 8；
+  .first-element {
+    @neat-span-columns 8;
+    background: grey;
     .element {
-      @neat-span-columns 6 8 ;
+      @neat-span-columns 6 8;
     }
   }
-} */
+  .second-element {
+    @neat-span-columns 4;
+    background: pink;
+  }
+}
+
 
 .rect {
   rect: 20px 30px #ff0;

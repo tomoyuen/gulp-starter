@@ -24,30 +24,6 @@
   }
 }
 
-@svg-load table url(table.svg) {
-  fill: #cfc;
-}
-
-article :--heading + p {
-  margin-top: 0;
-}
-
-.table {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  background: svg-inline(table);
-  background-size: cover;
-}
-
-.position {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  background: svg-load('position.svg', fill=#0f0, stroke=#fff);
-  background-size: cover;
-}
-
 a {
   color: inherit;
   text-decoration: none;
@@ -71,28 +47,7 @@ body {
   @media (--small-viewport) {
     font-size: 16px;
   }
-
-  p {
-    width: 200px;
-    background-color: #fefefe;
-    color: red;
-
-    @utils-ellipsis 4 ;
-  }
 }
-
-p:matches(:first-child, .special) {
-  color: red;
-}
-
-.banner {
-  position: fixed 0 0 *;
-  border: 1px 2px #343434;
-  size: 40px;
-  color: #abccfc #212131;
-  font-size: 12px 2;
-}
-
 /* .container {
   @neat-outer-container;
 

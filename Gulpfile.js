@@ -69,6 +69,7 @@ gulp.task('style', ['lint-css'], function() {
     .pipe(!util.env.production ? sourcemaps.init() : util.noop())
     .pipe(postcss(processors))
     .pipe(!util.env.production ? sourcemaps.write('.') : util.noop())
+    .pipe(gulp.dest('./dist/css'))
     .pipe(util.env.production ? cssnano() : util.noop())
     .pipe(util.env.production ? rename({ suffix: '.min' }) : util.noop())
     .pipe(gulp.dest('./dist/css'));
@@ -114,6 +115,7 @@ gulp.task('script', ['lint'], function() {
     .pipe(buffer())
     .pipe(!util.env.production ? sourcemaps.init({loadMaps: true}) : util.noop())
     .pipe(!util.env.production ? sourcemaps.write('.') : util.noop())
+    .pipe(gulp.dest('dist/js'))
     .pipe(util.env.production ? uglify() : util.noop())
     .pipe(util.env.production ? rename({ suffix: '.min' }) : util.noop())
     .pipe(gulp.dest('dist/js'))

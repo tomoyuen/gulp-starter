@@ -4,7 +4,7 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync'),
     eslint = require('gulp-eslint'),
     styleLint = require('stylelint'),
-    stylefmt = require('stylefmt'),
+    // stylefmt = require('stylefmt'),
     reporter = require('postcss-reporter'),
     browserify = require('browserify'),
     source = require('vinyl-source-stream'),
@@ -19,8 +19,9 @@ var gulp = require('gulp'),
     salad = require('postcss-salad'),
     px2rem = require('postcss-pxtorem'),
     cssSprite = require('postcss-easysprites'),
+    svgSymbols = require('gulp-svg-symbols'),
     assets = require('postcss-assets'),
-    sorting = require('postcss-sorting'),
+    // sorting = require('postcss-sorting'),
     webp = require('gulp-webp'),
     gzip = require('gulp-gzip'),
     sourcemaps = require('gulp-sourcemaps'),
@@ -126,6 +127,12 @@ gulp.task('imagemin', ['style'], function() {
   return gulp.src('src/assets/imgs/*')
     .pipe(util.env.production ? imagemin({ progressive: true }) : util.noop())
     .pipe(gulp.dest('dist/assets/imgs'));
+});
+
+gulp.task('svgSprites', function() {
+  return gulp.src('./src/assets/svgs/*.svg')
+    .pipe(svgSymbols())
+    .pipe(gulp.dest('./src/assets'));
 });
 
 gulp.task('gzip', function() {

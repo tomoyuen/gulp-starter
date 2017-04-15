@@ -25,10 +25,12 @@ var gulp = require('gulp'),
     webp = require('gulp-webp'),
     gzip = require('gulp-gzip'),
     sourcemaps = require('gulp-sourcemaps'),
-    webserver = require('gulp-webserver');
+    webserver = require('gulp-webserver'),
+    plumber = require('gulp-plumber');
 
 gulp.task('html', function() {
   return gulp.src('./src/*.html')
+    .pipe(plumber())
     .pipe(fileinclude({
       prefix: '@@',
       basepath: 'src/public',
@@ -67,6 +69,7 @@ gulp.task('style', ['lint-css'], function() {
   ];
 
   return gulp.src('src/css/main.css')
+    .pipe(plumber())
     .pipe(!util.env.production ? sourcemaps.init() : util.noop())
     .pipe(postcss(processors))
     .pipe(!util.env.production ? sourcemaps.write('.') : util.noop())
@@ -85,6 +88,7 @@ gulp.task('webp', function() {
 /* 代码校验 */
 gulp.task('lint', function() {
   return gulp.src('src/js/*.js')
+    .pipe(plumber())
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
@@ -97,6 +101,7 @@ gulp.task('lint-css', function() {
     }),
   ];
   return gulp.src('src/css/*css')
+    .pipe(plumber())
     .pipe(postcss(processors));
 });
 
@@ -112,6 +117,7 @@ gulp.task('script', ['lint'], function() {
     debug: true,
   }).transform('babelify', {presets: ['es2015']})
     .bundle()
+    .pipe(plumber())
     .pipe(source('main.js'))
     .pipe(buffer())
     .pipe(!util.env.production ? sourcemaps.init({loadMaps: true}) : util.noop())

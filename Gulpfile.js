@@ -131,7 +131,7 @@ gulp.task('script', ['lint'], function() {
 
 gulp.task('imagemin', ['style'], function() {
   return gulp.src('src/assets/imgs/*')
-    .pipe(util.env.production ? imagemin({ progressive: true }) : util.noop())
+    .pipe(util.env.production ? imagemin([], {}) : util.noop())
     .pipe(gulp.dest('dist/assets/imgs'));
 });
 

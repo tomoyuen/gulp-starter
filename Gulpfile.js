@@ -16,7 +16,7 @@ const { src, dest, series, parallel, watch } = require('gulp'),
     uglify = require('gulp-uglify'),
     cssnano = require('gulp-cssnano'),
     postcss = require('gulp-postcss'),
-    salad = require('postcss-salad'),
+    cssnext = require('postcss-preset-env'),
     px2rem = require('postcss-pxtorem'),
     cssSprite = require('postcss-easysprites'),
     svgSymbols = require('gulp-svg-symbols'),
@@ -26,7 +26,8 @@ const { src, dest, series, parallel, watch } = require('gulp'),
     togzip = require('gulp-gzip'),
     sourcemaps = require('gulp-sourcemaps'),
     webserver = require('gulp-webserver'),
-    plumber = require('gulp-plumber');
+    plumber = require('gulp-plumber'),
+    each = require('postcss-each');
 
 function html() {
   return src('./src/*.html')
@@ -40,7 +41,7 @@ function html() {
 
 function style() {
   var processors = [
-    salad({
+    cssnext({
       browser: ['ie > 8', 'last 2 version'],
       features: {
         'bem': false,
@@ -50,6 +51,7 @@ function style() {
         },
       },
     }),
+    each(),
     gulpassets({
       loadPaths: ['src/assets'],
     }),

@@ -25,7 +25,6 @@
 }
 
 a {
-  color: inherit;
   text-decoration: none;
 
   &:hover {
@@ -40,7 +39,7 @@ html {
 body {
   box-sizing: border-box;
   background: #fff;
-  color: $base-color;
+  color: var(--base-color);
   font-size: 14px;
   font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
 
@@ -74,123 +73,4 @@ body {
 
 .triangle {
   triangle: 5px top #ff0;
-}
-
-/* precss */
-
-/* Variables */
-$blue: #056ef0;
-$column: 200px;
-
-.menu {
-  width: calc(4 * $column);
-}
-
-.menu-link {
-  background: $blue;
-  width: $column;
-}
-
-/* Conditionals */
-.notice--clear {
-  @if 3 < 5 {
-    background: green;
-  }
-  @else {
-    background: blue;
-  }
-}
-
-/* Loops */
-@for $i from 1 to 3 {
-  .b-$i {
-    width: $(i)px;
-  }
-}
-
-@each $icon in (foo, bar, baz) {
-  .icon-$(icon) {
-    background: url('icons/$(icon).png');
-  }
-}
-
-/* Mixins */
-@define-mixin icon $name {
-  padding-left: 16px;
-
-  &::after {
-    content: '';
-    background: url('icons/$(name).png');
-  }
-}
-
-.search {
-  @mixin icon search ;
-}
-
-/* Extends */
-@define-extend bg-green {
-  background: green;
-}
-
-.notice--clear {
-  @extend bg-green;
-}
-
-/* Imports */
-
-/* Property Lookup */
-.heading {
-  margin: 20px;
-  padding: @margin;
-}
-
-/* Root */
-.parent {
-  background: white;
-
-  @at-root {
-    .child {
-      background: black;
-    }
-  }
-}
-
-/* Custom Selector */
-@custom-selector --any .foo, .bar
-
-  --any h1 {
-  padding-left: 16px;
-}
-
-/*
- * Custom Media
- *  --phone: (min-width: 544px)
- *  --tablet: (min-width: 768px)
- *  --desktop: (min-width: 992px)
- *  --large-desktop: (min-width: 1200px)
- */
-
-/* Media Min Max */
-@media screen and (width >= 500px) and (width <= 1200px) {
-  .bar {
-    display: block;
-  }
-}
-
-/* Color Function */
-.whatever {
-  color: color(red a(10%));
-  background-color: color(red lightness(50%));
-  border-color: color(hsla(125, 50%, 50%, .4) saturation(+ 10%) w(- 20%));
-}
-
-/* Selector Matches */
-p:matches(:first-child, .special) {
-  color: red;
-}
-
-/* Selector Not */
-p:not(:first-child, .special) {
-  color: red;
 }

@@ -1,33 +1,33 @@
+/* eslint one-var: off */
 const { src, dest, series, parallel, watch } = require('gulp'),
-    util = require('gulp-util'),
-    clean = require('gulp-clean'),
-    browserSync = require('browser-sync'),
-    eslint = require('gulp-eslint'),
-    styleLint = require('stylelint'),
-    // stylefmt = require('stylefmt'),
-    reporter = require('postcss-reporter'),
-    browserify = require('browserify'),
-    source = require('vinyl-source-stream'),
-    buffer = require('vinyl-buffer'),
-    notify = require('gulp-notify'),
-    fileinclude = require('gulp-file-include'),
-    rename = require('gulp-rename'),
-    imagemin = require('gulp-imagemin'),
-    uglify = require('gulp-uglify'),
-    cssnano = require('gulp-cssnano'),
-    postcss = require('gulp-postcss'),
-    cssnext = require('postcss-preset-env'),
-    px2rem = require('postcss-pxtorem'),
-    cssSprite = require('postcss-easysprites'),
-    svgSymbols = require('gulp-svg-symbols'),
-    gulpassets = require('postcss-assets'),
-    // sorting = require('postcss-sorting'),
-    towebp = require('gulp-webp'),
-    togzip = require('gulp-gzip'),
-    sourcemaps = require('gulp-sourcemaps'),
-    webserver = require('gulp-webserver'),
-    plumber = require('gulp-plumber'),
-    each = require('postcss-each');
+      util = require('gulp-util'),
+      clean = require('gulp-clean'),
+      browserSync = require('browser-sync'),
+      eslint = require('gulp-eslint'),
+      styleLint = require('stylelint'),
+      reporter = require('postcss-reporter'),
+      browserify = require('browserify'),
+      source = require('vinyl-source-stream'),
+      buffer = require('vinyl-buffer'),
+      notify = require('gulp-notify'),
+      fileinclude = require('gulp-file-include'),
+      rename = require('gulp-rename'),
+      imagemin = require('gulp-imagemin'),
+      uglify = require('gulp-uglify'),
+      cssnano = require('gulp-cssnano'),
+      postcss = require('gulp-postcss'),
+      cssnext = require('postcss-preset-env'),
+      px2rem = require('postcss-pxtorem'),
+      cssSprite = require('postcss-easysprites'),
+      svgSymbols = require('gulp-svg-symbols'),
+      gulpassets = require('postcss-assets'),
+      towebp = require('gulp-webp'),
+      togzip = require('gulp-gzip'),
+      sourcemaps = require('gulp-sourcemaps'),
+      webserver = require('gulp-webserver'),
+      plumber = require('gulp-plumber'),
+      each = require('postcss-each'),
+      atImport = require('postcss-import');
 
 function html() {
   return src('./src/*.html')
@@ -41,17 +41,12 @@ function html() {
 
 function style() {
   var processors = [
-    cssnext({
-      browser: ['ie > 8', 'last 2 version'],
-      features: {
-        'bem': false,
-        'inlineSvg': {
-          'path': 'src/assets/svgs',
-          'removeFill': true,
-        },
-      },
-    }),
     each(),
+    atImport(),
+    cssnext({
+      stage: 0,
+      browsers: ['ie > 8', 'last 2 version'],
+    }),
     gulpassets({
       loadPaths: ['src/assets'],
     }),
@@ -112,7 +107,7 @@ function lintCss() {
 function assets() {
   return src('src/assets/**/*.?(js|eot|svg|ttf|woff|woff2)')
     .pipe(dest('./dist/assets'))
-    .pipe(browserSync.reload({stream: true}));
+    .pipe(browserSync.reload({ stream: true }));
 }
 
 function script() {
@@ -124,7 +119,7 @@ function script() {
     .pipe(plumber())
     .pipe(source('main.js'))
     .pipe(buffer())
-    .pipe(!util.env.production ? sourcemaps.init({loadMaps: true}) : util.noop())
+    .pipe(!util.env.production ? sourcemaps.init({ loadMaps: true }) : util.noop())
     .pipe(!util.env.production ? sourcemaps.write('.') : util.noop())
     .pipe(dest('dist/js'))
     .pipe(util.env.production ? uglify() : util.noop())
@@ -162,7 +157,7 @@ function webServer() {
 }
 
 function cleanDist() {
-  return src('dist', {read: false})
+  return src('dist', { read: false })
     .pipe(clean());
 }
 
@@ -182,8 +177,9 @@ exports.script = series(lint, script);
 exports.style = series(lintCss, style);
 exports.imageMin = series(style, imageMin);
 exports.watch = series(
-  parallel(html, style, script),
-  webServer,
-  watchMode
+  html,
+  style,
+  script,
+  parallel(assets, imageMin, watchMode, webServer),
 );
 exports.default = parallel(html, assets, style, imagemin, script);

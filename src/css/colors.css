@@ -1,2 +1,4 @@
-$base-color: #333;
-$column: 200px;
+:root {
+  --base-color: #333;
+  --column: 200px;
+}

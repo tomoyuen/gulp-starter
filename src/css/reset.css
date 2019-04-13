@@ -1,2 +1,2 @@
 /* reset css */
-@reset-global pc ;
+@import 'modern-normalize/modern-normalize.css';
